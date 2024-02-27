@@ -5,7 +5,7 @@ import App from '../../src/App.jsx'
 describe('App', () => {
     it('renders the App heading', () => {
       render(<App />);
-      const headingElement = screen.getByText('Weather radar -project');
+      const headingElement = screen.getByText('Säätutka');
       expect(headingElement).toBeInTheDocument();
     });
 

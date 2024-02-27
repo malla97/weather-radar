@@ -5,7 +5,7 @@ function App() {
 
   return (
     <>
-      <header>Header</header>
+      <header>Säätutka</header>
       <Dropdown />
       <Weather />
     </>
