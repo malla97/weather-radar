@@ -1,6 +1,8 @@
 import React from "react";
 
-const Current = () => {
+const Current = ({ city }) => {
+    const { name, weather, weatherIcon, temperature, wind, humidity, precipitation, date } = city;
+
     return (
         <div>Current weather</div>
     );

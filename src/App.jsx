@@ -6,14 +6,14 @@ import cityData from "./data"
 function App() {
   const cities = cityData;
 
-  const [selectedCity, setSelectedCity] = useState(null);
+  const [selectedCityName, setSelectedCityName] = useState(null);
 
 
   return (
     <>
       <header>Säätutka</header>
       <Dropdown />
-      <Weather cities={cities} selectedCity={selectedCity}/>
+      <Weather cities={cities} selectedCityName={selectedCityName}/>
     </>
   );
 }

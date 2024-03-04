@@ -3,7 +3,7 @@ import axios from 'axios';
 import Current from "./Current";
 import Forecast from "./Forecast";
 
-const Weather = ({ cities, selectedCity }) => {
+const Weather = ({ cities, selectedCityName }) => {
     const apiKey = import.meta.env.VITE_API_KEY;
     const URL = "https://api.openweathermap.org/data/2.5/";
 
@@ -28,7 +28,7 @@ const Weather = ({ cities, selectedCity }) => {
                     console.log(error);
                 }
             };
-        
+
             for (const city of cities) {
                 fetchWeatherData(city.lat, city.lon);
             }
@@ -38,22 +38,21 @@ const Weather = ({ cities, selectedCity }) => {
 
 
     let CurrentWeatherElements;
-    if (!selectedCity) {
+    if (!selectedCityName) {
+        // No selected city, display every city's weather
         CurrentWeatherElements = currentWeatherData.map((city) =>
-            <Current 
-                key={city.id} 
-                name={city.name}
-                weather={city.weather[0].description}
-                weatherIcon={city.weather[0].icon}
-                temperature={city.main.temp}
-                wind={city.wind.speed}
-                humidity={city.main.humidity}
-                precipitation={city.rain ? city.rain["3h"] || 0 : 0}
-                date={city.dt}
+            <Current
+                key={city.id}
+                city={city}
             />
         );
     } else {
-        // Selected city
+        // Get the selected city
+        const selectedCity = currentWeatherData.find(city => city.name === selectedCityName);
+        <Current
+            key={selectedCity.id}
+            city={currentCity}
+        />
     }
 
     return (
