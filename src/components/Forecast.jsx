@@ -7,8 +7,8 @@ const Forecast = ({ city }) => {
     // only use the next 5 
     let ForecastElements
     ForecastElements = city.list.slice(1, 6).map((forecast, index) =>
-        <div key={index}>
-            <div>
+        <div key={index} data-testid={`forecast-element-${index}`}>
+            <div data-testid="forecast-element">
                 <p>{formatTimeString(new Date(forecast.dt_txt))}</p>
                 <img src={`https://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png`} alt="Forecast Icon" />
                 <p>{`${Math.round(forecast.main.temp)} °C`}</p>
@@ -16,7 +16,7 @@ const Forecast = ({ city }) => {
             <div>
                 <p>{`${forecast.wind.speed} m/s`}</p>
                 <p>{`${forecast.main.humidity} %`}</p>
-                <p>{`${forecast.rain ? rain["3h"] || 0 : 0 } mm`}</p>
+                <p>{`${forecast.rain ? forecast.rain["3h"] || 0 : 0 } mm`}</p>
             </div>
         </div>
     );

@@ -23,10 +23,12 @@ describe('Current', () => {
         const currentTime = new Date();
         const hours = currentTime.getHours();
         const minutes = currentTime.getMinutes();
-        
+        const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+        const formattedHours = hours < 10 ? `0${hours}` : hours;
+
         render(<Current city={cityData} />);
         const dateElement = screen.getByText('March 5th');
-        const timeElement = screen.getByText(`${hours}:${minutes}`);
+        const timeElement = screen.getByText(`${formattedHours}:${formattedMinutes}`);
         expect(dateElement).toBeInTheDocument();
         expect(timeElement).toBeInTheDocument();
     });
