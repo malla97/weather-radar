@@ -8,8 +8,7 @@ describe('Current', () => {
         weather: [{ description: 'Overcast clouds', icon: 'weather-icon' }],
         main: { temp: 18, humidity: 87 },
         wind: { speed: 5 },
-        rain: { "3h": 0 },
-        dt: 1709634767
+        rain: { "3h": 0 }
     }
 
     it('renders city name and weather description', () => {
@@ -21,9 +20,13 @@ describe('Current', () => {
     });
 
     it('renders formatted date and time', () => {
+        const currentTime = new Date();
+        const hours = currentTime.getHours();
+        const minutes = currentTime.getMinutes();
+        
         render(<Current city={cityData} />);
         const dateElement = screen.getByText('March 5th');
-        const timeElement = screen.getByText('12:32');
+        const timeElement = screen.getByText(`${hours}:${minutes}`);
         expect(dateElement).toBeInTheDocument();
         expect(timeElement).toBeInTheDocument();
     });

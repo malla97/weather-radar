@@ -2,7 +2,7 @@ import React from "react";
 import { formatDateString, formatTimeString } from "../utils/dateUtils";
 
 const Current = ({ city }) => {
-    const { name, weather, main, wind, rain, dt } = city;
+    const { name, weather, main, wind, rain } = city;
 
     const weatherDescription = weather[0].description;
     const weatherIconURL = `https://openweathermap.org/img/wn/${weather[0].icon}@2x.png`
@@ -11,8 +11,9 @@ const Current = ({ city }) => {
     const precipitation = rain ? rain["3h"] || 0 : 0 // If no rain in the response, then set it to 0
     const windSpeed = wind.speed;
 
-    // Get and format the date and time
-    const date = new Date(dt * 1000);
+    // Get and format the current date and time
+    const date = new Date();
+    console.log(date);
     const formattedDate = formatDateString(date);
     const formattedTime = formatTimeString(date);
 
