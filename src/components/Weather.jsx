@@ -34,33 +34,49 @@ const Weather = ({ cities, selectedCityName }) => {
             }
         }
 
-    }, [cities]);
+    }, []);
 
 
-    let CurrentWeatherElements;
-    if (!selectedCityName) {
+    // Sort alphabetically so the the cities match in both states by the index
+    const sortedCurrentWeatherData = [...currentWeatherData].sort((city1, city2) => {
+        return city1.name.localeCompare(city2.name);
+    });
+
+
+    const sortedForecastedWeatherData = [...forecastedWeatherData].sort((city1, city2) => {
+        return city1.city.name.localeCompare(city2.city.name);
+    });
+
+    // Wait that the sorting has happened and the sorted data is the length of the cities data
+    let WeatherElements;
+    if (!selectedCityName && sortedForecastedWeatherData.length === cities.length) {
         // No selected city, display every city's weather
-        CurrentWeatherElements = currentWeatherData.map((city) =>
-            <Current
-                key={city.id}
-                city={city}
-            />
-        );
-    } else {
+        WeatherElements = sortedCurrentWeatherData.map((city, index) => (
+            <React.Fragment key={city.id}>
+                <Current key={`current-${city.id}`} city={city} />
+                <Forecast key={`forecast-${city.id}`} city={sortedForecastedWeatherData[index]} />
+            </React.Fragment>
+        ));
+    } 
+    
+    if (selectedCityName) {
         // Get the selected city
-        const selectedCity = currentWeatherData.find(city => city.name === selectedCityName);
-        <Current
-            key={selectedCity.id}
-            city={currentCity}
-        />
+        const currentSelectedCity = currentWeatherData.find(city => city.name === selectedCityName);
+        const forecastSelectedCity = forecastedWeatherData.find(city => city.city.name === selectedCityName);
+        WeatherElements = (
+            <React.Fragment key={currentSelectedCity.id}>
+                <Current key={`current-${currentSelectedCity.id}`} city={currentSelectedCity} />
+                <Forecast key={`forecast-${forecastSelectedCity.id}`} city={forecastSelectedCity} />
+            </React.Fragment>
+        );
     }
 
     return (
         <div className="weather-container">
-            {CurrentWeatherElements}
-            <Forecast />
+            {WeatherElements}
         </div>
     );
+
 }
 
 export default Weather;

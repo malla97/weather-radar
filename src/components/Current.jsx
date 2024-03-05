@@ -13,7 +13,6 @@ const Current = ({ city }) => {
 
     // Get and format the current date and time
     const date = new Date();
-    console.log(date);
     const formattedDate = formatDateString(date);
     const formattedTime = formatTimeString(date);
 
