@@ -3,3 +3,10 @@ body {
     background-color: #00A5E5;
     color: #262626;
 }
+
+.forecast-weather-container {
+    display: flex;
+    flex-direction: row;
+    background-color: pink;
+    gap: 5px;
+}

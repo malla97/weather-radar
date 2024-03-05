@@ -22,9 +22,12 @@ export const formatDateString = (date) => {
 
 
 export const formatTimeString = (date) => {
+    console.log(date)
     const hours = date.getHours();
     const minutes = date.getMinutes();
+    // Add a leading 0 if the minutes are less than 10
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
 
-    const formattedTime = `${hours}:${minutes}`
+    const formattedTime = `${hours}:${formattedMinutes}`;
     return formattedTime;
 }
