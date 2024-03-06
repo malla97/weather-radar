@@ -2,6 +2,24 @@ body {
     font-family: Arial, sans-serif;
     background-color: #00A5E5;
     color: #262626;
+    margin: 0;
+}
+
+header {
+    background-color: #FFFFFF;
+    color: #262626;
+    font-size: 23pt;
+    text-align: center;
+    width: 100%;
+    height: 50px;
+}
+
+.dropdown-container {
+    background-color: #F8F9FA;
+}
+
+.weather-container {
+    background-color: #F8F9FA;
 }
 
 .forecast-weather-container {
