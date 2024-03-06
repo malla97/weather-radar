@@ -12,7 +12,7 @@ function App() {
   return (
     <>
       <header>Säätutka</header>
-      <Dropdown />
+      <Dropdown cities={cities} setSelectedCityName={setSelectedCityName}/>
       <Weather cities={cities} selectedCityName={selectedCityName}/>
     </>
   );
