@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import axios from 'axios';
 import Current from "./Current";
 import Forecast from "./Forecast";
+import { normalizeNordicLetters } from "../utils/stringUtils";
 
 const Weather = ({ cities, selectedCity }) => {
     const apiKey = import.meta.env.VITE_API_KEY;
@@ -55,8 +56,8 @@ const Weather = ({ cities, selectedCity }) => {
     if (!selectedCity && sortedForecastedWeatherData.length === cities.length) {
         // No selected city, display every city's weather
         WeatherElements = sortedCurrentWeatherData.map((city, index) => {
-            const cityName = cities.find(cityData => // Use the city name from cities to have nordic letters
-                 (city.coord.lon === cityData.lon && city.coord.lat === cityData.lat)).name;
+            const cityName = cities.find(cityData => 
+                normalizeNordicLetters(cityData.name) === city.name).name;
             return (
                 <React.Fragment key={city.id}>
                     <Current key={`current-${city.id}`} city={city} cityName={cityName} />
