@@ -1,7 +1,7 @@
 import React from "react";
 import { formatDateString, formatTimeString } from "../utils/dateUtils";
 
-const Current = ({ city }) => {
+const Current = ({ city, cityName }) => {
     const { name, weather, main, wind, rain } = city;
 
     const weatherDescription = weather[0].description;
@@ -20,7 +20,7 @@ const Current = ({ city }) => {
     return (
         <div className="current-weather-container">
             <div className="city-container">
-                <p>{name}</p>
+                <p>{cityName}</p>
                 <p>{weatherDescription}</p>
             </div>
             <div className="temp-container">

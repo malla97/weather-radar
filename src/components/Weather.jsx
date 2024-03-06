@@ -3,7 +3,7 @@ import axios from 'axios';
 import Current from "./Current";
 import Forecast from "./Forecast";
 
-const Weather = ({ cities, selectedCityName }) => {
+const Weather = ({ cities, selectedCity }) => {
     const apiKey = import.meta.env.VITE_API_KEY;
     const URL = "https://api.openweathermap.org/data/2.5/";
 
@@ -49,23 +49,25 @@ const Weather = ({ cities, selectedCityName }) => {
 
     // Wait that the sorting has happened and the sorted data is the length of the cities data
     let WeatherElements;
-    if (!selectedCityName && sortedForecastedWeatherData.length === cities.length) {
+    if (!selectedCity && sortedForecastedWeatherData.length === cities.length) {
         // No selected city, display every city's weather
         WeatherElements = sortedCurrentWeatherData.map((city, index) => (
             <React.Fragment key={city.id}>
-                <Current key={`current-${city.id}`} city={city} />
+                <Current key={`current-${city.id}`} city={city} cityName={city.name}/>
                 <Forecast key={`forecast-${city.id}`} city={sortedForecastedWeatherData[index]} />
             </React.Fragment>
         ));
     } 
-    
-    if (selectedCityName) {
+    console.log(selectedCity)
+    console.log(currentWeatherData);
+    if (selectedCity) {
         // Get the selected city
-        const currentSelectedCity = currentWeatherData.find(city => city.name === selectedCityName);
-        const forecastSelectedCity = forecastedWeatherData.find(city => city.city.name === selectedCityName);
+        const currentSelectedCity = currentWeatherData.find(city => (city.coord.lon === selectedCity.lon && city.coord.lat === selectedCity.lat));
+        const forecastSelectedCity = forecastedWeatherData.find(city => (city.city.coord.lon === selectedCity.lon && city.city.coord.lat === selectedCity.lat));
+        console.log(currentSelectedCity);
         WeatherElements = (
             <React.Fragment key={currentSelectedCity.id}>
-                <Current key={`current-${currentSelectedCity.id}`} city={currentSelectedCity} />
+                <Current key={`current-${currentSelectedCity.id}`} city={currentSelectedCity} cityName={selectedCity.name} />
                 <Forecast key={`forecast-${forecastSelectedCity.id}`} city={forecastSelectedCity} />
             </React.Fragment>
         );

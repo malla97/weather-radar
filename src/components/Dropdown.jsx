@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 
-const Dropdown = ({ cities, setSelectedCityName }) => {
+const Dropdown = ({ cities, setSelectedCity }) => {
     const DEFAULT = "Kaikki kaupungit";
     const [value, setValue] = useState(DEFAULT);
 
     const handleChange = (event) => {
         setValue(event.target.value);
         if (event.target.value === DEFAULT) {
-            setSelectedCityName(null);
+            setSelectedCity(null);
         } else {
-            setSelectedCityName(event.target.value);
+            const selectedCity = cities.find(city => city.id === parseInt(event.target.value));
+            console.log(selectedCity);
+            setSelectedCity(selectedCity);
         }
         
     };
-
 
     return (
         <div>
@@ -21,7 +22,7 @@ const Dropdown = ({ cities, setSelectedCityName }) => {
                 <select value={value} onChange={handleChange}>
                     <option value={DEFAULT}>{DEFAULT}</option>
                     {cities.map((city) => (
-                        <option key={city.id} value={city.name}>{city.name}</option>
+                        <option key={city.id} value={city.id}>{city.name}</option>
                     ))}
                 </select>
             </label>
