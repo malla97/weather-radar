@@ -2,7 +2,7 @@ import React from "react";
 import { formatDateString, formatTimeString } from "../utils/dateUtils";
 
 const Current = ({ city, cityName }) => {
-    const { name, weather, main, wind, rain } = city;
+    const { weather, main, wind, rain } = city;
 
     const weatherDescription = weather[0].description;
     const weatherIconURL = `https://openweathermap.org/img/wn/${weather[0].icon}@2x.png`
