@@ -20,21 +20,21 @@ const Current = ({ city, cityName }) => {
     return (
         <div className="current-weather-container">
             <div className="city-container">
-                <p>{cityName}</p>
-                <p>{weatherDescription}</p>
+                <p className="current-city-text">{cityName}</p>
+                <p className="p-grey-13">{weatherDescription}</p>
             </div>
             <div className="temp-container">
                 <img src={weatherIconURL} alt="Weather Icon" />
                 <p>{`${temperature}°C`}</p>
             </div>
             <div className="date-container">
-                <p>{formattedDate}</p>
-                <p>{formattedTime}</p>
+                <p className="current-date-text">{formattedDate}</p>
+                <p className="p-grey-13">{formattedTime}</p>
             </div>
             <div className="wind-container">
-                <p>{`Wind: ${windSpeed} m/s`}</p>
-                <p>{`Humidity: ${humidity} %`}</p>
-                <p>{`Precipitation (3 h): ${precipitation} mm`}</p>
+                <p className="p-grey-13">{`Wind: ${windSpeed} m/s`}</p>
+                <p className="p-grey-13">{`Humidity: ${humidity} %`}</p>
+                <p className="p-grey-13">{`Precipitation (3 h): ${precipitation} mm`}</p>
             </div>
         </div>
     );

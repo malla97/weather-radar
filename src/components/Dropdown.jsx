@@ -16,7 +16,7 @@ const Dropdown = ({ cities, setSelectedCity }) => {
     };
 
     return (
-        <div>
+        <div className="dropdown-container">
             <label>
                 <select value={value} onChange={handleChange} data-testid="dropdown">
                     <option value={DEFAULT}>{DEFAULT}</option>

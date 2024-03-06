@@ -9,22 +9,150 @@ header {
     background-color: #FFFFFF;
     color: #262626;
     font-size: 23pt;
-    text-align: center;
     width: 100%;
     height: 50px;
+    border-bottom: 1px solid #E6E6E6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-body {
+    display: flex;
+    flex-direction: column;
+    background-color: #F8F9FA;
 }
 
 .dropdown-container {
-    background-color: #F8F9FA;
+    width: 100%;
+}
+
+label {
+    align-self: center;
+    width: 100%;
+    display: inline-block;
+}
+
+select {
+    background-color: #FFFFFF;
+    width: 100%;
+    border: 1px solid #E6E6E6;
+    border-radius: 8px;
 }
 
 .weather-container {
     background-color: #F8F9FA;
+    margin-top: 20px;
+}
+
+.current-weather-container {
+    width: 100%;
+    background-color: #FFFFFF;
+    border: 1px solid #E6E6E6;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-row: auto;
+    border-radius: 8px;
+}
+
+
+.date-container, .city-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin: 10px;
+}
+
+.city-container {
+    background-color: green;
+    margin: 10px;
+}
+
+.date-container {
+    justify-content: end;
+}
+
+.wind-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    margin: 10px;
+}
+
+.wind-container > p, .date-container > p, .city-container > p {
+    margin: 1px;
+    font-size: 13pt;
+}
+
+.temp-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    font-size: 26pt;
+    color: #262626;
+    margin: 10px;
 }
 
 .forecast-weather-container {
     display: flex;
     flex-direction: row;
-    background-color: pink;
+    justify-content: space-between;
     gap: 5px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.forecast-element {
+    border: 1px solid #E6E6E6;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+}
+
+.forecast-upper-element {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+}
+
+.forecast-upper-element > img {
+    height: 60px;
+    width: 60px;
+}
+
+.forecast-bottom-element {
+    display: flex;
+    flex-direction: column;
+    background-color: #E5F6FD;
+    font-size: 10pt;
+    color: #70757A;
+    padding: 8px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top: 1px solid #E6E6E6;
+}
+
+.forecast-bottom-element > p, .forecast-upper-element > p {
+    margin: 1px;
+    align-self: center;
+}
+
+.p-grey-13 {
+    font-size: 13pt;
+    color: #70757A;
+}
+
+.current-city-text {
+    font-size: 19pt;
+}
+
+.current-date-text {
+    font-size: 15pt;
+}
+
+.forecast-temp-text {
+    font-size: 15pt;
+    color: #262626
 }
