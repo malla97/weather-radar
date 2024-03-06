@@ -4,12 +4,13 @@ import Current from '../../src/components/Current';
 
 describe('Current', () => {
     const cityData = {
-        name: 'Tampere',
         weather: [{ description: 'Overcast clouds', icon: 'weather-icon' }],
         main: { temp: 18, humidity: 87 },
         wind: { speed: 5 },
         rain: { "3h": 0 }
     }
+
+    const cityName = 'Tampere';
 
     // for testing the formatted date
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -26,7 +27,7 @@ describe('Current', () => {
     };
 
     it('renders city name and weather description', () => {
-        render(<Current city={cityData} />);
+        render(<Current city={cityData} cityName={cityName} />);
         const cityNameElement = screen.getByText('Tampere');
         const weatherDescriptionElement = screen.getByText('Overcast clouds');
         expect(cityNameElement).toBeInTheDocument();
@@ -44,7 +45,7 @@ describe('Current', () => {
         const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
         const formattedHours = hours < 10 ? `0${hours}` : hours;
 
-        render(<Current city={cityData} />);
+        render(<Current city={cityData} cityName={cityName} />);
         const dateElement = screen.getByText(formattedDate);
         const timeElement = screen.getByText(`${formattedHours}:${formattedMinutes}`);
         expect(dateElement).toBeInTheDocument();
@@ -52,7 +53,7 @@ describe('Current', () => {
     });
 
     it('renders wind speed, humidity, and precipitation', () => {
-        render(<Current city={cityData} />);
+        render(<Current city={cityData} cityName={cityName} />);
         const windElement = screen.getByText('Wind: 5 m/s');
         const humidityElement = screen.getByText('Humidity: 87 %');
         const precipitationElement = screen.getByText('Precipitation (3 h): 0 mm');
