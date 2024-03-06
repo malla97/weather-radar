@@ -3,7 +3,7 @@ import axios from 'axios';
 import Current from "./Current";
 import Forecast from "./Forecast";
 
-const Weather = ({ cities, selectedCityName }) => {
+const Weather = ({ cities, selectedCity }) => {
     const apiKey = import.meta.env.VITE_API_KEY;
     const URL = "https://api.openweathermap.org/data/2.5/";
 
@@ -18,11 +18,13 @@ const Weather = ({ cities, selectedCityName }) => {
             const fetchWeatherData = async (latitude, longitude) => {
                 try {
                     // Fetch current weather
-                    const currentResponse = await axios.get(`${URL}weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`);
+                    const currentResponse = await axios
+                        .get(`${URL}weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`);
                     setCurrentWeatherData(prevData => [...prevData, currentResponse.data]);
 
                     // Fetch forecasted weather
-                    const forecastResponse = await axios.get(`${URL}forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`);
+                    const forecastResponse = await axios
+                        .get(`${URL}forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`);
                     setForecastedWeatherData(prevData => [...prevData, forecastResponse.data]);
                 } catch (error) {
                     console.log(error);
@@ -37,7 +39,7 @@ const Weather = ({ cities, selectedCityName }) => {
     }, []);
 
 
-    // Sort alphabetically so the the cities match in both states by the index
+    // Sort alphabetically so the the cities match by the index
     const sortedCurrentWeatherData = [...currentWeatherData].sort((city1, city2) => {
         return city1.name.localeCompare(city2.name);
     });
@@ -47,25 +49,33 @@ const Weather = ({ cities, selectedCityName }) => {
         return city1.city.name.localeCompare(city2.city.name);
     });
 
+
     // Wait that the sorting has happened and the sorted data is the length of the cities data
     let WeatherElements;
-    if (!selectedCityName && sortedForecastedWeatherData.length === cities.length) {
+    if (!selectedCity && sortedForecastedWeatherData.length === cities.length) {
         // No selected city, display every city's weather
-        WeatherElements = sortedCurrentWeatherData.map((city, index) => (
-            <React.Fragment key={city.id}>
-                <Current key={`current-${city.id}`} city={city} />
-                <Forecast key={`forecast-${city.id}`} city={sortedForecastedWeatherData[index]} />
-            </React.Fragment>
-        ));
-    } 
-    
-    if (selectedCityName) {
+        WeatherElements = sortedCurrentWeatherData.map((city, index) => {
+            const cityName = cities.find(cityData => // Use the city name from cities to have nordic letters
+                 (city.coord.lon === cityData.lon && city.coord.lat === cityData.lat)).name;
+            return (
+                <React.Fragment key={city.id}>
+                    <Current key={`current-${city.id}`} city={city} cityName={cityName} />
+                    <Forecast key={`forecast-${city.id}`} city={sortedForecastedWeatherData[index]} />
+                </React.Fragment>
+            );
+        });
+    }
+
+    if (selectedCity) {
         // Get the selected city
-        const currentSelectedCity = currentWeatherData.find(city => city.name === selectedCityName);
-        const forecastSelectedCity = forecastedWeatherData.find(city => city.city.name === selectedCityName);
+        const currentSelectedCity = currentWeatherData.find(city =>
+            (city.coord.lon === selectedCity.lon && city.coord.lat === selectedCity.lat));
+        const forecastSelectedCity = forecastedWeatherData.find(city =>
+            (city.city.coord.lon === selectedCity.lon && city.city.coord.lat === selectedCity.lat));
+
         WeatherElements = (
             <React.Fragment key={currentSelectedCity.id}>
-                <Current key={`current-${currentSelectedCity.id}`} city={currentSelectedCity} />
+                <Current key={`current-${currentSelectedCity.id}`} city={currentSelectedCity} cityName={selectedCity.name} />
                 <Forecast key={`forecast-${forecastSelectedCity.id}`} city={forecastSelectedCity} />
             </React.Fragment>
         );
