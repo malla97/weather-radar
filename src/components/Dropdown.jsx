@@ -10,7 +10,6 @@ const Dropdown = ({ cities, setSelectedCity }) => {
             setSelectedCity(null);
         } else {
             const selectedCity = cities.find(city => city.id === parseInt(event.target.value));
-            console.log(selectedCity);
             setSelectedCity(selectedCity);
         }
         
@@ -19,7 +18,7 @@ const Dropdown = ({ cities, setSelectedCity }) => {
     return (
         <div>
             <label>
-                <select value={value} onChange={handleChange}>
+                <select value={value} onChange={handleChange} data-testid="dropdown">
                     <option value={DEFAULT}>{DEFAULT}</option>
                     {cities.map((city) => (
                         <option key={city.id} value={city.id}>{city.name}</option>

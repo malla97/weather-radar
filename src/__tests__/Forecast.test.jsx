@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { expect } from 'vitest';
+import { describe, expect } from 'vitest';
 import Forecast from '../../src/components/Forecast';
 
 describe("Forecast Component", () => {
