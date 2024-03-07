@@ -4,7 +4,8 @@ import { formatDateString, formatTimeString } from "../utils/dateUtils";
 const Current = ({ city, cityName }) => {
     const { weather, main, wind, rain } = city;
 
-    const weatherDescription = weather[0].description;
+    const description = weather[0].description;
+    const weatherDescription = description.charAt(0).toUpperCase() + description.slice(1);
     const weatherIconURL = `https://openweathermap.org/img/wn/${weather[0].icon}@2x.png`
     const temperature = Math.round(main.temp); // Use a rounded temperature
     const humidity = main.humidity;

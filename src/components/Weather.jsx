@@ -11,6 +11,8 @@ const Weather = ({ cities, selectedCity }) => {
     const [currentWeatherData, setCurrentWeatherData] = useState([]);
     const [forecastedWeatherData, setForecastedWeatherData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+    const [errorBody, setErrorBody] = useState(null);
     const initialized = useRef(false); // Use this because of strict mode, so no duplicates even on development mode
 
     useEffect(() => {
@@ -32,6 +34,8 @@ const Weather = ({ cities, selectedCity }) => {
                     setLoading(false);
                 } catch (error) {
                     console.log(error);
+                    setError(true);
+                    setErrorBody({"code": error.response.status, "message": error.response.statusText});
                 }
             };
 
@@ -90,6 +94,16 @@ const Weather = ({ cities, selectedCity }) => {
     if (loading) {
         return (
             <div className="loader"></div>
+        )
+    }
+
+    if (error) {
+        return (
+            <div className="error">
+                <p>{`Oh no there was an error fetching the data! :(`}</p>
+                <p>{`${errorBody.code}: ${errorBody.message}`}</p>
+            </div>
+
         )
     }
 
