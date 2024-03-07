@@ -86,6 +86,7 @@ const Weather = ({ cities, selectedCity }) => {
     }
 
     // Loading indicator, in case the loading takes some time
+    // used a ready made from this website https://css-loaders.com/classic/
     if (loading) {
         return (
             <div className="loader"></div>
