@@ -39,7 +39,7 @@ header {
 
 .custom-select select {
     display: none;
-  }
+}
 
 label {
     display: inline-block;
@@ -80,7 +80,8 @@ select {
 }
 
 
-.date-container, .city-container {
+.date-container,
+.city-container {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -88,7 +89,8 @@ select {
     margin-left: 20px;
 }
 
-.date-container, .wind-container {
+.date-container,
+.wind-container {
     margin-bottom: 10px;
     margin-top: 10px;
 }
@@ -102,7 +104,7 @@ select {
     margin-right: 20px;
 }
 
-.temp-container > img {
+.temp-container>img {
     height: 100px;
     width: 100px;
 }
@@ -119,7 +121,9 @@ select {
     margin-right: 20px;
 }
 
-.wind-container > p, .date-container > p, .city-container > p {
+.wind-container>p,
+.date-container>p,
+.city-container>p {
     margin: 1px;
 }
 
@@ -149,7 +153,7 @@ select {
     border-top-right-radius: 8px;
 }
 
-.forecast-upper-element > img {
+.forecast-upper-element>img {
     height: 56px;
     width: 56px;
 }
@@ -166,7 +170,8 @@ select {
     border-top: 1px solid #E6E6E6;
 }
 
-.forecast-bottom-element > p, .forecast-upper-element > p {
+.forecast-bottom-element>p,
+.forecast-upper-element>p {
     margin: 1px;
     align-self: center;
 }
@@ -182,11 +187,27 @@ select {
     font-size: 20px;
     clip-path: inset(0 3ch 0 0);
     animation: l4 1s steps(4) infinite;
-  }
-  .loader:before {
-    content:"Loading..."
-  }
-  @keyframes l4 {to{clip-path: inset(0 -1ch 0 0)}}
+}
+
+.loader:before {
+    content: "Loading..."
+}
+
+@keyframes l4 {
+    to {
+        clip-path: inset(0 -1ch 0 0)
+    }
+}
+
+/* Error styling */
+.error {
+    align-self: center;
+    margin-top: 40px;
+    margin-bottom: 50px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
 
 /* Text styling */
 .p-grey-13 {
@@ -210,27 +231,35 @@ select {
 
 /* Extra small devices (Phones) */
 @media (max-width: 576px) {
-    .weather-multiple-container, .weather-single-container {
+
+    .weather-multiple-container,
+    .weather-single-container {
         display: flex;
         flex-direction: column;
         align-items: center;
     }
-    .current-weather-container, .forecast-weather-container {
+
+    .current-weather-container,
+    .forecast-weather-container {
         width: 400px;
     }
 }
 
 /* Small Devices (Tablets) */
 @media (min-width: 577px) and (max-width: 768px) {
-    .weather-multiple-container, .weather-single-container {
+
+    .weather-multiple-container,
+    .weather-single-container {
         display: flex;
         flex-direction: column;
         align-items: center;
     }
 
-    .current-weather-container, .forecast-weather-container {
+    .current-weather-container,
+    .forecast-weather-container {
         width: 400px;
     }
+
     .dropdown-container {
         align-self: center;
     }
@@ -238,20 +267,25 @@ select {
 
 /* Medium Devices (Laptops and Desktops) */
 @media (min-width: 769px) and (max-width: 1200px) {
-    .current-weather-container, .forecast-weather-container {
+
+    .current-weather-container,
+    .forecast-weather-container {
         min-width: 400px;
         width: 420px;
     }
+
     .dropdown-container {
         min-width: 440;
         width: 460px;
     }
+
     .weather-multiple-container {
         display: flex;
         flex-direction: row;
         justify-content: center;
         gap: 20px;
     }
+
     .weather-single-container {
         display: flex;
         align-self: center;
@@ -259,6 +293,7 @@ select {
         justify-content: center;
         gap: 20px;
     }
+
     .weather-container {
         gap: 10px;
     }
@@ -266,28 +301,35 @@ select {
 
 /* Large Devices (Large Desktops and TVs) */
 @media (min-width: 1201px) {
-    .current-weather-container, .forecast-weather-container {
+
+    .current-weather-container,
+    .forecast-weather-container {
         width: 600px;
-        
+
     }
+
     .dropdown-container {
         width: 640px;
     }
-    .forecast-upper-element > img {
+
+    .forecast-upper-element>img {
         height: 90px;
         width: 90px;
     }
+
     .weather-container {
         display: grid;
         grid-template-columns: auto auto;
         grid-row: auto;
     }
+
     .weather-multiple-container {
         display: flex;
         flex-direction: column;
         align-items: center;
         margin-top: 20px;
     }
+
     .weather-single-container {
         display: flex;
         flex-direction: column;
