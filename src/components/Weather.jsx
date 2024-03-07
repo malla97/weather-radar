@@ -10,6 +10,7 @@ const Weather = ({ cities, selectedCity }) => {
 
     const [currentWeatherData, setCurrentWeatherData] = useState([]);
     const [forecastedWeatherData, setForecastedWeatherData] = useState([]);
+    const [loading, setLoading] = useState(true);
     const initialized = useRef(false); // Use this because of strict mode, so no duplicates even on development mode
 
     useEffect(() => {
@@ -27,6 +28,8 @@ const Weather = ({ cities, selectedCity }) => {
                     const forecastResponse = await axios
                         .get(`${URL}forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`);
                     setForecastedWeatherData(prevData => [...prevData, forecastResponse.data]);
+
+                    setLoading(false);
                 } catch (error) {
                     console.log(error);
                 }
@@ -70,9 +73,9 @@ const Weather = ({ cities, selectedCity }) => {
     if (selectedCity) {
         // Get the selected city
         const currentSelectedCity = currentWeatherData.find(city =>
-            (city.coord.lon === selectedCity.lon && city.coord.lat === selectedCity.lat));
+            city.name === normalizeNordicLetters(selectedCity.name));
         const forecastSelectedCity = forecastedWeatherData.find(city =>
-            (city.city.coord.lon === selectedCity.lon && city.city.coord.lat === selectedCity.lat));
+            city.city.name === normalizeNordicLetters(selectedCity.name));
 
         WeatherElements = (
             <div key={currentSelectedCity.id} className="weather-single-container">
@@ -80,6 +83,14 @@ const Weather = ({ cities, selectedCity }) => {
                 <Forecast key={`forecast-${forecastSelectedCity.id}`} city={forecastSelectedCity} />
             </div>
         );
+    }
+
+    // Loading indicator, in case the loading takes some time
+    // used a ready made from this website https://css-loaders.com/classic/
+    if (loading) {
+        return (
+            <div className="loader"></div>
+        )
     }
 
     return (
