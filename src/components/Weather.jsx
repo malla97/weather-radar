@@ -70,9 +70,9 @@ const Weather = ({ cities, selectedCity }) => {
     if (selectedCity) {
         // Get the selected city
         const currentSelectedCity = currentWeatherData.find(city =>
-            (city.coord.lon === selectedCity.lon && city.coord.lat === selectedCity.lat));
+            city.name === normalizeNordicLetters(selectedCity.name));
         const forecastSelectedCity = forecastedWeatherData.find(city =>
-            (city.city.coord.lon === selectedCity.lon && city.city.coord.lat === selectedCity.lat));
+            city.city.name === normalizeNordicLetters(selectedCity.name));
 
         WeatherElements = (
             <div key={currentSelectedCity.id} className="weather-single-container">
