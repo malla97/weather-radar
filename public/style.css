@@ -10,7 +10,7 @@ header {
     color: #262626;
     font-size: 23pt;
     width: 100%;
-    height: 50px;
+    height: 70px;
     border-bottom: 1px solid #E6E6E6;
     display: flex;
     justify-content: center;
@@ -21,16 +21,27 @@ header {
     display: flex;
     flex-direction: column;
     background-color: #F8F9FA;
+    width: 100%;
 }
 
 .dropdown-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
+    margin-top: 20px;
+    position: relative;
 }
 
+.custom-select select {
+    display: none;
+  }
+
 label {
-    align-self: center;
-    width: 100%;
     display: inline-block;
+    width: inherit;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 select {
@@ -38,11 +49,22 @@ select {
     width: 100%;
     border: 1px solid #E6E6E6;
     border-radius: 8px;
+    height: 40px;
+    font-size: 13pt;
+    color: #262626;
+    padding-left: 20px;
 }
+
+option {
+    margin-left: 200px;
+}
+
 
 .weather-container {
     background-color: #F8F9FA;
     margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .current-weather-container {
@@ -50,7 +72,7 @@ select {
     background-color: #FFFFFF;
     border: 1px solid #E6E6E6;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: auto auto;
     grid-row: auto;
     border-radius: 8px;
 }
@@ -61,12 +83,26 @@ select {
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    margin: 10px;
+    margin-left: 20px;
 }
 
-.city-container {
-    background-color: green;
-    margin: 10px;
+.date-container, .wind-container {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.temp-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    font-size: 26pt;
+    color: #262626;
+    margin-right: 20px;
+}
+
+.temp-container > img {
+    height: 100px;
+    width: 100px;
 }
 
 .date-container {
@@ -78,22 +114,13 @@ select {
     flex-direction: column;
     align-items: flex-end;
     justify-content: center;
-    margin: 10px;
+    margin-right: 20px;
 }
 
 .wind-container > p, .date-container > p, .city-container > p {
     margin: 1px;
-    font-size: 13pt;
 }
 
-.temp-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: end;
-    font-size: 26pt;
-    color: #262626;
-    margin: 10px;
-}
 
 .forecast-weather-container {
     display: flex;
@@ -115,11 +142,14 @@ select {
     display: flex;
     flex-direction: column;
     padding: 8px;
+    background-color: #FFFFFF;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
 
 .forecast-upper-element > img {
-    height: 60px;
-    width: 60px;
+    height: 56px;
+    width: 56px;
 }
 
 .forecast-bottom-element {
