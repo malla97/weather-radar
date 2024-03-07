@@ -11,8 +11,10 @@ function App() {
   return (
     <>
       <header>Säätutka</header>
-      <Dropdown cities={cities} setSelectedCity={setSelectedCity}/>
-      <Weather cities={cities} selectedCity={selectedCity}/>
+      <div className="main-body">
+        <Dropdown cities={cities} setSelectedCity={setSelectedCity}/>
+        <Weather cities={cities} selectedCity={selectedCity}/>
+      </div>
     </>
   );
 }

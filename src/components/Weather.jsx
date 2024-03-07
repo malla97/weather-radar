@@ -59,10 +59,10 @@ const Weather = ({ cities, selectedCity }) => {
             const cityName = cities.find(cityData => 
                 normalizeNordicLetters(cityData.name) === city.name).name;
             return (
-                <React.Fragment key={city.id}>
+                <div key={city.id} className="weather-multiple-container">
                     <Current key={`current-${city.id}`} city={city} cityName={cityName} />
                     <Forecast key={`forecast-${city.id}`} city={sortedForecastedWeatherData[index]} />
-                </React.Fragment>
+                </div>
             );
         });
     }
@@ -75,10 +75,10 @@ const Weather = ({ cities, selectedCity }) => {
             (city.city.coord.lon === selectedCity.lon && city.city.coord.lat === selectedCity.lat));
 
         WeatherElements = (
-            <React.Fragment key={currentSelectedCity.id}>
+            <div key={currentSelectedCity.id} className="weather-single-container">
                 <Current key={`current-${currentSelectedCity.id}`} city={currentSelectedCity} cityName={selectedCity.name} />
                 <Forecast key={`forecast-${forecastSelectedCity.id}`} city={forecastSelectedCity} />
-            </React.Fragment>
+            </div>
         );
     }
 
