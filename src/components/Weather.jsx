@@ -2,14 +2,12 @@ import React, { useEffect, useState, useRef } from "react";
 import axios from 'axios';
 import Current from "./Current";
 import Forecast from "./Forecast";
-import { normalizeNordicLetters } from "../utils/stringUtils";
 
 const Weather = ({ cities, selectedCity }) => {
     const apiKey = import.meta.env.VITE_API_KEY;
     const URL = "https://api.openweathermap.org/data/2.5/";
 
-    const [currentWeatherData, setCurrentWeatherData] = useState([]);
-    const [forecastedWeatherData, setForecastedWeatherData] = useState([]);
+    const [weatherData, setWeatherData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [errorBody, setErrorBody] = useState(null);
@@ -19,56 +17,54 @@ const Weather = ({ cities, selectedCity }) => {
         // Fetch data for cities only if not initialized
         if (!initialized.current) {
             initialized.current = true;
-            const fetchWeatherData = async (latitude, longitude) => {
+            const fetchWeatherData = async (name, latitude, longitude) => {
                 try {
                     // Fetch current weather
                     const currentResponse = await axios
                         .get(`${URL}weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`);
-                    setCurrentWeatherData(prevData => [...prevData, currentResponse.data]);
 
                     // Fetch forecasted weather
                     const forecastResponse = await axios
                         .get(`${URL}forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`);
-                    setForecastedWeatherData(prevData => [...prevData, forecastResponse.data]);
+
+                    setWeatherData(prevData => [...prevData, 
+                        {
+                            "id": currentResponse.data.id,
+                            "name": name,
+                            "currentData": currentResponse,
+                            "forecastData": forecastResponse
+                        }
+                    ]);
 
                     setLoading(false);
+
                 } catch (error) {
-                    console.log(error);
                     setError(true);
                     setErrorBody({"code": error.response.status, "message": error.response.statusText});
                 }
             };
 
             for (const city of cities) {
-                fetchWeatherData(city.lat, city.lon);
+                fetchWeatherData(city.name, city.lat, city.lon);
             }
         }
 
     }, []);
 
 
-    // Sort alphabetically so the the cities match by the index
-    const sortedCurrentWeatherData = [...currentWeatherData].sort((city1, city2) => {
-        return city1.name.localeCompare(city2.name);
-    });
-
-
-    const sortedForecastedWeatherData = [...forecastedWeatherData].sort((city1, city2) => {
-        return city1.city.name.localeCompare(city2.city.name);
-    });
-
-
-    // Wait that the sorting has happened and the sorted data is the length of the cities data
     let WeatherElements;
-    if (!selectedCity && sortedForecastedWeatherData.length === cities.length) {
+    if (!selectedCity) {
         // No selected city, display every city's weather
-        WeatherElements = sortedCurrentWeatherData.map((city, index) => {
-            const cityName = cities.find(cityData => 
-                normalizeNordicLetters(cityData.name) === city.name).name;
+        WeatherElements = weatherData.map((city) => {
             return (
                 <div key={city.id} className="weather-multiple-container">
-                    <Current key={`current-${city.id}`} city={city} cityName={cityName} />
-                    <Forecast key={`forecast-${city.id}`} city={sortedForecastedWeatherData[index]} />
+                    <Current key={`current-${city.id}`} 
+                        city={city.currentData.data} 
+                        cityName={city.name} 
+                    />
+                    <Forecast key={`forecast-${city.id}`} 
+                        city={city.forecastData.data} 
+                    />
                 </div>
             );
         });
@@ -76,15 +72,17 @@ const Weather = ({ cities, selectedCity }) => {
 
     if (selectedCity) {
         // Get the selected city
-        const currentSelectedCity = currentWeatherData.find(city =>
-            city.name === normalizeNordicLetters(selectedCity.name));
-        const forecastSelectedCity = forecastedWeatherData.find(city =>
-            city.city.name === normalizeNordicLetters(selectedCity.name));
+        const selected = weatherData.find(city => city.name === selectedCity.name);
 
         WeatherElements = (
-            <div key={currentSelectedCity.id} className="weather-single-container">
-                <Current key={`current-${currentSelectedCity.id}`} city={currentSelectedCity} cityName={selectedCity.name} />
-                <Forecast key={`forecast-${forecastSelectedCity.id}`} city={forecastSelectedCity} />
+            <div key={selected.currentData.data.id} className="weather-single-container">
+                <Current key={`current-${selected.id}`} 
+                    city={selected.currentData.data} 
+                    cityName={selected.name} 
+                />
+                <Forecast key={`forecast-${selected.id}`} 
+                    city={selected.forecastData.data} 
+                />
             </div>
         );
     }
@@ -103,7 +101,6 @@ const Weather = ({ cities, selectedCity }) => {
                 <p>{`Oh no there was an error fetching the data! :(`}</p>
                 <p>{`${errorBody.code}: ${errorBody.message}`}</p>
             </div>
-
         )
     }
 
