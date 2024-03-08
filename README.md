@@ -12,10 +12,8 @@ In the terminal at the root of the project run a command *npm run frontend*, whi
 If not, the program runs at *http://localhost:5500/*.
 Stop the program with *ctrl + C*.
 
-I would suggest using Firefox as a browser and selecting iPhone 12/13 Pro Max as the device to inspect the mobile version,
-as that's what was used to do the styling for mobile.
-
 ### Testing
 To run unit tests run a command *npm run test* in the terminal.
 
+This program was developed with Node version 18.19.0.
 This repository contains a CI-pipeline made with GitHub actions.
