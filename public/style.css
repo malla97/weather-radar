@@ -104,7 +104,7 @@ select {
     margin-right: 20px;
 }
 
-.temp-container>img {
+.temp-container > img {
     height: 100px;
     width: 100px;
 }
@@ -121,9 +121,9 @@ select {
     margin-right: 20px;
 }
 
-.wind-container>p,
-.date-container>p,
-.city-container>p {
+.wind-container > p,
+.date-container > p,
+.city-container > p {
     margin: 1px;
 }
 
@@ -153,7 +153,7 @@ select {
     border-top-right-radius: 8px;
 }
 
-.forecast-upper-element>img {
+.forecast-upper-element > img {
     height: 56px;
     width: 56px;
 }
@@ -170,8 +170,8 @@ select {
     border-top: 1px solid #E6E6E6;
 }
 
-.forecast-bottom-element>p,
-.forecast-upper-element>p {
+.forecast-bottom-element > p,
+.forecast-upper-element > p {
     margin: 1px;
     align-self: center;
 }
@@ -228,9 +228,12 @@ select {
     color: #262626
 }
 
+/* Very skinny phones */
+@media (max-width: 400px) {
 
-/* Extra small devices (Phones) */
-@media (max-width: 576px) {
+    .dropdown-container {
+        width: 380px;
+    }
 
     .weather-multiple-container,
     .weather-single-container {
@@ -241,13 +244,50 @@ select {
 
     .current-weather-container,
     .forecast-weather-container {
-        width: 400px;
+        width: 340px;
+
     }
+
+    .forecast-upper-element,
+    .forecast-bottom-element {
+        padding: 1px;
+    }
+}
+
+/* Extra small devices (Phones) */
+@media (min-width: 401px) and (max-width: 576px) {
+
+    .dropdown-container {
+        width: 420px;
+    }
+
+    .weather-multiple-container,
+    .weather-single-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .current-weather-container,
+    .forecast-weather-container {
+        width: 380px;
+
+    }
+
+    .forecast-upper-element,
+    .forecast-bottom-element {
+        padding: 7px;
+    }
+    
 }
 
 /* Small Devices (Tablets) */
 @media (min-width: 577px) and (max-width: 768px) {
 
+    .dropdown-container {
+        width: 460px;
+    }
+
     .weather-multiple-container,
     .weather-single-container {
         display: flex;
@@ -257,7 +297,12 @@ select {
 
     .current-weather-container,
     .forecast-weather-container {
-        width: 400px;
+        width: 420px;
+    }
+
+    .forecast-upper-element,
+    .forecast-bottom-element {
+        padding: 9px;
     }
 
     .dropdown-container {
