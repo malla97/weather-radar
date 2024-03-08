@@ -45,7 +45,7 @@ describe("Forecast Component", () => {
                 weather: [{ icon: "01d" }],
                 main: { temp: 8, humidity: 75 },
                 wind: { speed: 2 },
-                rain: { "3h": 0 },
+                rain: { "3h": 2 }
             }
         ],
     };
@@ -77,6 +77,17 @@ describe("Forecast Component", () => {
         expect(forecastElement).toHaveTextContent("8 °C");
         expect(forecastElement).toHaveTextContent("2 m/s");
         expect(forecastElement).toHaveTextContent("75 %");
-        expect(forecastElement).toHaveTextContent("0 mm");
+        expect(forecastElement).toHaveTextContent("2 mm");
+    });
+
+    it("renders forecast elements with correct precipitation amount", () => {
+        cityData.list[5].snow = { "3h": 3 }; // Adding snow data
+        render(<Forecast city={cityData} />);
+        const forecastElement = screen.getByTestId("forecast-element-4");
+        expect(forecastElement).toBeInTheDocument();
+
+        const totalAmount = cityData.list[5].rain["3h"] + cityData.list[5].snow["3h"];
+        const precipitationElement = screen.getByText(`${totalAmount} mm`);
+        expect(precipitationElement).toBeInTheDocument();
     });
 })
