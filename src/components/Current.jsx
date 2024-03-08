@@ -1,16 +1,20 @@
 import React from "react";
 import { formatDateString, formatTimeString } from "../utils/dateUtils";
+import { getPrecipitationAmount } from "../utils/weatherUtils";
 
 const Current = ({ city, cityName }) => {
-    const { weather, main, wind, rain } = city;
+    const { weather, main, wind, rain, snow } = city;
 
     const description = weather[0].description;
     const weatherDescription = description.charAt(0).toUpperCase() + description.slice(1);
     const weatherIconURL = `https://openweathermap.org/img/wn/${weather[0].icon}@2x.png`
     const temperature = Math.round(main.temp); // Use a rounded temperature
     const humidity = main.humidity;
-    const precipitation = rain ? rain["3h"] || 0 : 0 // If no rain in the response, then set it to 0
     const windSpeed = wind.speed;
+    const precipitationRain = rain ? rain["3h"] || 0 : 0 // If no rain in the response, then set it to 0
+    const precipitationSnow = snow ? snow["3h"] || 0 : 0 // If no snow, then set it to 0
+
+    const precipitation = getPrecipitationAmount(precipitationRain, precipitationSnow);
 
     // Get and format the current date and time
     const date = new Date();
