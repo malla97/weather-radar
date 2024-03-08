@@ -15,5 +15,6 @@ Stop the program with *ctrl + C*.
 ### Testing
 To run unit tests run a command *npm run test* in the terminal.
 
-This program was developed with Node version 18.19.0.
-This repository contains a CI-pipeline made with GitHub actions.
+#### Sidenotes
+- This program was developed using Node version 18.19.0.
+- This repository contains a CI-pipeline made with GitHub actions.
