@@ -7,7 +7,7 @@ describe('Current', () => {
         weather: [{ description: 'Overcast clouds', icon: 'weather-icon' }],
         main: { temp: 18, humidity: 87 },
         wind: { speed: 5 },
-        rain: { "3h": 0 }
+        snow: { "3h": 1.3 }
     }
 
     const cityName = 'Tampere';
@@ -56,9 +56,18 @@ describe('Current', () => {
         render(<Current city={cityData} cityName={cityName} />);
         const windElement = screen.getByText('Wind: 5 m/s');
         const humidityElement = screen.getByText('Humidity: 87 %');
-        const precipitationElement = screen.getByText('Precipitation (3 h): 0 mm');
+        const precipitationElement = screen.getByText('Precipitation (3 h): 1.3 mm');
         expect(windElement).toBeInTheDocument();
         expect(humidityElement).toBeInTheDocument();
+        expect(precipitationElement).toBeInTheDocument();
+    });
+
+    it('renders precipitation where rain and snow are added together', () => {
+        const cityDataWithRain = { ...cityData, rain: { "3h": 4 } };
+        render(<Current city={cityDataWithRain} cityName={cityName} />);
+        const totalAmount = cityDataWithRain.snow["3h"] + cityDataWithRain.rain["3h"];
+
+        const precipitationElement = screen.getByText(`Precipitation (3 h): ${totalAmount} mm`);
         expect(precipitationElement).toBeInTheDocument();
     });
 
